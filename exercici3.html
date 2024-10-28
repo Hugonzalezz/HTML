@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: #178b00;
+  color: black;
+  font-family: sans-serif;
+}
+pre {
+  background-color: #178b00;
+  padding: 10px;
+  margin: 10px;
+}
+table {
+  border-collapse: collapse;
+  margin: 10px;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<h1>A nested List:</h1>
+<ul>
+  <li>Coffee</li>
+  <li>Tea
+    <ul>
+      <li>Black tea</li>
+      <li>Green tea
+        <ul>
+          <li>China</li>
+          <li>Africa</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Milk</li>
+</ul>
+
+<p>Coffee - black hot drink</p>
+<p>Milk - white cold drink</p>
+
+<h1>Numbered list:</h1>
+<ol>
+  <li>Apples</li>
+  <li>Bananas</li>
+  <li>Lemons</li>
+  <li>Oranges</li>
+</ol>
+
+<h1>Letters list:</h1>
+<ul>
+  <li>A. Apples</li>
+  <li>B. Bananas</li>
+  <li>C. Lemons</li>
+  <li>D. Oranges</li>
+</ul>
+
+<h1>Lowercase letters list:</h1>
+<ul>
+  <li>a. Apples</li>
+  <li>b. Bananas</li>
+  <li>c. Lemons</li>
+  <li>d. Oranges</li>
+</ul>
+
+<h1>Roman numbers list:</h1>
+<ol type="I">
+  <li>Apples</li>
+  <li>Bananas</li>
+  <li>Lemons</li>
+  <li>Oranges</li>
+</ol>
+
+<h1>Lowercase Roman numbers list:</h1>
+<ol type="i">
+  <li>Apples</li>
+  <li>Bananas</li>
+  <li>Lemons</li>
+  <li>Oranges</li>
+</ol>
+
+<p>Link per enviar emails a una adreça determinada:</p>
+<a href="#">Enviar email</a>
+
+<h1>CREATE TABLE examples</h1>
+
+<ul>
+  <li>Basic CREATE TABLE statement</li>
+  <li>Creating a table with a particular storage engine</li>
+  <li>Creating a table with auto increment</li>
+  <li>Creating a table with the current timestamp</li>
+  <li>Creating a table with TIMESTAMP DEFAULT NOW()</li>
+  <li>Viewing a table definition</li>
+</ul>
+
+<h2>Basic CREATE TABLE statement</h2>
+
+<p>A very basic CREATE TABLE statement which should work in any SQL database:</p>
+
+<pre>
+mysql> CREATE TABLE example (
+    id INT,
+    data VARCHAR(100)
+);
+Query OK, 0 rows affected (0.03 sec)
+</pre>
+
+<h2>Creating a table with a particular storage engine</h2>
+
+<p>MySQL provides a variety of different table types with differing levels of functionality. The usual default, and most widely used, is MyISAM. Other storage types must be explicitly defined:</p>
+
+<pre>
+mysql> CREATE TABLE example_innodb (
+    id INT,
+    data VARCHAR(100)
+) TYPE=innodb;
+Query OK, 0 rows affected (0.03 sec)
+</pre>
+
+<p>Note that beginning with MySQL 4.1 ENGINE=innodb is the preferred method of defining the storage type. Use SHOW CREATE TABLE (see below) to check that MySQL has created the table as you defined it.</p>
+
+<h2>Creating a table with auto_increment</h2>
+
+<p>Often you'll want to be able to automatically assign a sequential value to a column:</p>
+
+<pre>
+mysql> CREATE TABLE example_autoincrement (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    data VARCHAR(100)
+);
+Query OK, 0 rows affected (0.01 sec)
+</pre>
+
+<h2>Creating a table with TIMESTAMP DEFAULT NOW()</h2>
+
+<p>MySQL supports the construct TIMESTAMP DEFAULT NOW() only from version 4.1:</p>
+
+<pre>
+CREATE TABLE example default now (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    data VARCHAR(100),
+    created TIMESTAMP DEFAULT NOW()
+);
+</pre>
+
+<p>In this case the column created retains its initial value and is not changed during subsequent updates.</p>
+
+<p>For versions prior to 4.1, the only workaround is to create two timestamp columns in a table, and explicitly set the second one when inserting the record. Remember: the first TIMESTAMP will be automagically updated on each record update.</p>
+
+<h2>Viewing a table definition</h2>
+
+<p>For basic information on table columns, use DESC tablename:</p>
+
+<pre>
+mysql> DESC example;
++-------+----------+------+-----+---------+-------+
+| Field | Type      | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id     | int(11)   | YES  | PRI | NULL    |       |
+| data   | varchar(100) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+</pre>
+
+<p>Exact definition of the table:</p>
+
+<pre>
+mysql> SHOW CREATE TABLE example;
++--------+----------------------------------------------------------------------------------------------------------------
+</pre>
+
+</body>
+</html>
